@@ -1,6 +1,6 @@
 ---
-title: 'LazerCat: Automated Hydroponics Dosing System'
-author: '**Kushagra Tiwari and Shengmin Liu** (website template by Ryan Tsang)'
+title: 'LazerCat: Play with your cat remotely!'
+author: '**Andrew Kim and Rocco Scinto**'
 date: '*EEC172 SQ24*'
 
 subtitle: '<blockquote><b>EEC172 Final Project Webpage Example</b><br/>
@@ -27,12 +27,12 @@ the TDS value goes outside thresholds.
 <br/><br/>
 Our source code can be found 
 <!-- replace this link -->
-<a href="https://github.com/ucd-eec172/project-website-example">
-  here (placeholder)</a>.
+<a href="https://github.com/kim15096/eec172-finalproject-lazercat">
+  here</a>.
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;padding-top:20px">
   <div style="display: inline-block; vertical-align: bottom;">
-    <img src="./media/Image_001.jpg" style="width:auto;height:2in"/>
+    <img src="./media/home_station.jpeg" style="width:auto;height:2in"/>
     <!-- <span class="caption"> </span> -->
   </div>
   <div style="display: inline-block; vertical-align: bottom;">
@@ -44,7 +44,7 @@ Our source code can be found
 <h2>Video Demo</h2>
 <div style="text-align:center;margin:auto;max-width:560px">
   <div style="padding-bottom:56.25%;position:relative;height:0;">
-    <iframe style="left:0;top:0;width:100%;height:100%;position:absolute;" width="560" height="315" src="https://www.youtube.com/embed/wSRtnAEZhmc?si=3vQXNj4h0WkW-F-q" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/yG8Bkn4AS34?si=KMJsmiFA9RZ1XC99" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 </div>
 '

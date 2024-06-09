@@ -54,6 +54,8 @@ While there are existing products such as pet cameras and laser toys, our system
     This project is comprised of three core systems, each playing a crucial role in the overall functionality and integration of the system. These systems include the Away Device, the Central System, and the Home Station. Each system incorporates distinct components and functionalities, which collectively ensure seamless operation and user interaction.
 
 ### Away Device
+
+![Alt text](eec172-lazercat-website/media/awaystate.JPG)
 The Away Device is designed to be with the user at all times. It comprises the CC3200 microcontroller and a remote control. The CC3200, a powerful and versatile microcontroller, facilitates wireless communication and control. The remote control provides the user with the capability to interact with and manage the system from a distance, ensuring convenience and flexibility in operation. The user can also select and cancel lazer modes through the deployed front-end website.
 
 ### Central System
@@ -76,7 +78,7 @@ The integration and coordination of these three systems involve the interaction 
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
-      <img src="./media/Image_006.jpg" style="width:90%;height:auto;" />
+      <img src="./media/Image_AWS.JPG" style="width:90%;height:auto;" />
       <span class="caption">State Diagram</span>
     </div>
   </div>

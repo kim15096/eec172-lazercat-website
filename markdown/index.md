@@ -74,7 +74,7 @@ The integration and coordination of these three systems involve the interaction 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
   <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-In these diagrams we can see the state machines we designed. 
+In these diagrams we can see the state machines we designed. These three machines all start in idle modes and wait on usuer input. For the away CC3200 the input is the IR controller. For the home station and the Rasperry Pi the user initiates contact through the website in order to start streaming video or to configure the laser modes. 
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">

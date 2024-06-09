@@ -88,21 +88,31 @@ The integration and coordination of these three systems involve the interaction 
 
 # Implementation
 ## Home Station
-Here we have two state diagrams to show 
+Here we have two state diagrams to showing how the co-located CC3200 and Raspbery Pi work in tandum to provide the user with a fun experience. We see that each machine in an idle state awaiting a stimulus from the user or a motion detector. This we then intiate the machines to enter their operation loops where the Raspi is streaming video and the CC3200 is controlling the servo as per the user's instructions. 
 
-<img src="./media/statemachines.JPG" alt="Home Station" width="500px">
+<div style="text-align: center;">
+  <img src="./media/statemachines.JPG" alt="Home Station" width="500px">
+<div>
+
+<div style="text-align: center;">
 <img src="./media/raspistate.JPG" alt="Home Station" width="500px">
+<div>
 
 ### Lazer
+The laser is on a 2 axis servo system. The servos themselves use are controlled by PWM and in order to control them we had to implement our own version of the 20mS period 1%-10% duty cycle of PWM to communicate with these servos. By associating the percentage of duty cyle with the position of the servo we were able to utilize servo structs in our code to control each of them independently and in a coordinated manner so as to facilitate game modes for the user to select. 
 
 ### Mounting
+The mountings seen in the home station were the combination of various 3D models. (See references at bottom) I created a central plane for the home station and added a custom protoboard PCB. This was more robust and compact when compared to the breadboard. I then added 2.5mm mounting for the CC3200 and the Raspi. From there I took a design for a ball and socket, scaled to a size to fit our needs and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D printed container. We fear that the raspi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D printed module that allows for wiring to be routed and freedom of movement for both servos. 
 
 ## Central Servers
 ### AWS IoT Core
 ### AWS Kinesis WebRTC
 ### Custom Web server
 ## Away Device
-![Alt text](./media/awaystate.JPG)
+
+<div style="text-align: center;">
+<img src="./media/awaystate.JPG" alt="Home Station" width="500px">
+<div>
 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
@@ -323,3 +333,15 @@ To support these improvements, further work will also involve optimizing the liv
   </tr>
 </tbody>
 </table>
+
+
+
+
+## References for 3D Models
+Thank you to everyone in the open source community who continues to put out significant and useful work for others to build off of.
+- [Raspi camera case](https://www.thingiverse.com/thing:2199829)
+- [Motion sensor case](https://www.thingiverse.com/thing:291270)
+- [Raspi Case](https://www.thingiverse.com/thing:587676)
+- [CC3200 holes and layout](https://www.thingiverse.com/thing:3251774)
+- [Servo holders](https://www.thingiverse.com/thing:3045553)
+- [Ball and sockets](https://www.thingiverse.com/thing:2069128)

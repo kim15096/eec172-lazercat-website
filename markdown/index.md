@@ -81,22 +81,33 @@ The integration and coordination of these three systems involve the interaction 
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
       <img src="./media/AWS.JPG" style="width:90%;height:auto;" />
-      <span class="caption">State Diagram</span>
+      <span class="caption">AWS implementing SNS</span>
     </div>
   </div>
 </div>
 
 # Implementation
 ## Home Station
-Here we have two state diagrams to showing how the co-located CC3200 and Raspbery Pi work in tandum to provide the user with a fun experience. We see that each machine in an idle state awaiting a stimulus from the user or a motion detector. This we then intiate the machines to enter their operation loops where the Raspi is streaming video and the CC3200 is controlling the servo as per the user's instructions. 
 
-<div style="text-align: center;">
-  <img src="./media/statemachines.JPG" alt="Home Station" width="500px">
-<div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+  Here we have two state diagrams to showing how the co-located CC3200 and Raspbery Pi work in tandum to provide the user with a fun experience. We see that each machine in an idle state awaiting a stimulus from the user or a motion detector. This we then intiate the machines to enter their operation loops where the Raspi is streaming video and the CC3200 is controlling the servo as per the user's instructions. 
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
+    <div class="fig">
+      <img src="./media/statemachines.JPG" style="width:90%;height:auto;" />
+      <span class="caption">Home station CC3200 state machine</span>
+    </div>
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
+    <div class="fig">
+      <img src="./media/raspistate.JPG" style="width:90%;height:auto;" />
+      <span class="caption">Raspberry Pi state machine</span>
+    </div>
+  </div>
+</div>
 
-<div style="text-align: center;">
-<img src="./media/raspistate.JPG" alt="Home Station" width="500px">
-<div>
+
 
 ### Lazer
 The laser is on a 2 axis servo system. The servos themselves use are controlled by PWM and in order to control them we had to implement our own version of the 20mS period 1%-10% duty cycle of PWM to communicate with these servos. By associating the percentage of duty cyle with the position of the servo we were able to utilize servo structs in our code to control each of them independently and in a coordinated manner so as to facilitate game modes for the user to select. 
@@ -110,13 +121,20 @@ The mountings seen in the home station were the combination of various 3D models
 ### Custom Web server
 ## Away Device
 
-
-<div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+    Our system works based on the following state diagram. The device will
+    thresholds and go back to the rest state. In each state, the device will
+    periodically post the TDS.
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
-      <img src="./media/awaystate.JPG" style="width:auto;height:2in" />
-      <span class="caption">Home Station</span>
+      <img src="./media/awaystate.JPG" style="width:90%;height:auto;" />
+      <span class="caption">Away station CC3200 with OLED and IR receiver</span>
     </div>
   </div>
+</div>
+
 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
@@ -126,13 +144,7 @@ The mountings seen in the home station were the combination of various 3D models
     the slave device will read them and synchronize them to the reported
     state. The slave device will also post the TDS and temperature readings
     periodically.
-  </div>
-  <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
-    <div class="fig">
-      <img src="./media/Image_007.jpg" style="width:auto;height:2.5in" />
-      <span class="caption">Device Shadow JSON</span>
     </div>
-  </div>
 </div>
 
 ### Setting up IR Receiver
@@ -146,7 +158,7 @@ The mountings seen in the home station were the combination of various 3D models
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/away_circuit.jpg" style="width:auto;height:2in" />
+      <img src="./media/OLED.png" style="width:auto;height:2in" />
       <span class="caption">OLED Wiring Diagram</span>
     </div>
   </div>
@@ -160,7 +172,7 @@ The mountings seen in the home station were the combination of various 3D models
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/OLED.png" style="width:auto;height:2in" />
+      <img src="./media/away_circuit.jpg" style="width:auto;height:2in" />
       <span class="caption">IR Receiver Wiring Diagram</span>
     </div>
   </div>

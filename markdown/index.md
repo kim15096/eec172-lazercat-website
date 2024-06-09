@@ -73,43 +73,40 @@ The integration and coordination of these three systems involve the interaction 
 ## Functional Specification
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
-  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-    Our system works based on the following state diagram. The device will
-    thresholds and go back to the rest state. In each state, the device will
-    periodically post the TDS.
+  <div style="flex:1 0 300px;">
+    Our system works based on the following state diagrams
   </div>
-  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
-    <div class="fig">
-      <img src="./media/AWS.JPG" style="width:90%;height:auto;" />
-      <span class="caption">AWS implementing SNS</span>
-    </div>
-  </div>
-</div>
-
-# Implementation
-## Home Station
-
-<div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
-  <div style="flex: 1 0 300px; margin-right: 20px;">
-    <p>
-      Here we have two state diagrams showing how the co-located CC3200 and Raspberry Pi work in tandem to provide the user with a fun experience. We see that each machine is in an idle state awaiting a stimulus from the user or a motion detector. This will then initiate the machines to enter their operation loops where the Raspberry Pi is streaming video and the CC3200 is controlling the servo as per the user's instructions.
-    </p>
-  </div>
-  <div style="display: flex; flex: 0 1 1000px;">
-    <div style="flex: 1; margin-right: 10px;">
+  <div style="display:flex;flex-wrap:wrap;flex:1 0 1000px;">
+    <div style="flex:1; margin-right:10px;">
       <div class="fig">
-        <img src="./media/statemachines.JPG" style="width: 100%; height: auto;" />
+        <img src="./media/statemachines.JPG" style="width:100%;height:auto;" />
         <span class="caption">Home station CC3200 state machine</span>
       </div>
     </div>
-    <div style="flex: 1; margin-left: 10px;">
+    <div style="flex:1; margin-left:10px;">
       <div class="fig">
-        <img src="./media/raspistate.JPG" style="width: 100%; height: auto;" />
+        <img src="./media/raspistate.JPG" style="width:100%;height:auto;" />
         <span class="caption">Raspberry Pi state machine</span>
       </div>
     </div>
   </div>
+  <div style="flex:1 0 500px; margin-top:20px;">
+    <div class="fig">
+      <img src="./media/awaystate.JPG" style="width:90%;height:auto;" />
+      <span class="caption">Away station CC3200 with OLED and IR receiver</span>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+# Implementation
+## Home Station
+The CC3200 and Raspberry Pi work in tandem to provide the user with a fun experience. We see that each machine is in an idle state awaiting a stimulus from the user or a motion detector. This will then initiate the machines to enter their operation loops where the Raspberry Pi is streaming video and the CC3200 is controlling the servo as per the user's instructions.
+
+
 
 ### IR Sensor
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
@@ -149,24 +146,8 @@ The laser is on a 2 axis servo system. The servos themselves use are controlled 
 ### AWS Kinesis WebRTC
 ### Custom Web server
 ## Away Device
+The away station is a CC3200 controlled assembly. The intention is that if the user does not have acces to the website to control the laser, they can instead utilize the IR remote control with this assembly. The user is able to send messages over IR NEC protocol to the CC3200 where the user can switch between various games mode and settings. The user can see their controller inputs on the CC3200 in real time with the integrated OLED screen. 
 
-<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
-  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-
-  WHAT IS THIS BIT FOR????????????
-
-  DELETES?
-    Our system works based on the following state diagram. The device will
-    thresholds and go back to the rest state. In each state, the device will
-    periodically post the TDS.
-  </div>
-  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
-    <div class="fig">
-      <img src="./media/awaystate.JPG" style="width:90%;height:auto;" />
-      <span class="caption">Away station CC3200 with OLED and IR receiver</span>
-    </div>
-  </div>
-</div>
 
 
 

@@ -128,6 +128,10 @@ The mountings seen in the home station were the combination of various 3D models
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
   <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+
+  WHAT IS THIS BIT FOR????????????
+
+  DELETES?
     Our system works based on the following state diagram. The device will
     thresholds and go back to the rest state. In each state, the device will
     periodically post the TDS.
@@ -142,24 +146,11 @@ The mountings seen in the home station were the combination of various 3D models
 
 
 
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 200px'>
-    The AWS IoT core allows our devices to communicate with each other
-    asynchronously. The master device can update the desired thresholds, and
-    the slave device will read them and synchronize them to the reported
-    state. The slave device will also post the TDS and temperature readings
-    periodically.
-    </div>
-</div>
-
 ### Setting up IR Receiver
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    On both Master and Slave devices, the user can view the current TDS and
-    temperature of the plant solution on an OLED display. The user can also
-    use the display to view and edit the TDS thresholds. The CC3200 uses the
-    SPI bus to communicate with the display module.
+    The key component in the users' ability to communicate with the CC3200 is the Vishay made IR receiver. Using the NEC code IR protocol we were able to utilize GPIO interrupts on the CC3200 to detect message wave forms as they were broadcast by an IR remote control. By parsing these messages from the user it can allow for laser control and menu surfing through the game modes.   
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
@@ -173,7 +164,7 @@ The mountings seen in the home station were the combination of various 3D models
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    In order to implement the OLED screen we wired it to our CC3200 and use the SPI protocol.
+    To give the user a GUI we utilized this OLED screen. By connecting the OLED to the CC3200 via an SPI bus we were able to refesh and update the screen responsively to users' input.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">

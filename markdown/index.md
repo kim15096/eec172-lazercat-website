@@ -73,34 +73,16 @@ The integration and coordination of these three systems involve the interaction 
 ## Functional Specification
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
-  <div style="flex:1 0 300px;">
-    Our system works based on the following state diagrams
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+In these diagrams we can see the state machines we designed. 
   </div>
-  <div style="display:flex;flex-wrap:wrap;flex:1 0 1000px;">
-    <div style="flex:1; margin-right:10px;">
-      <div class="fig">
-        <img src="./media/statemachines.JPG" style="width:100%;height:auto;" />
-        <span class="caption">Home station CC3200 state machine</span>
-      </div>
-    </div>
-    <div style="flex:1; margin-left:10px;">
-      <div class="fig">
-        <img src="./media/raspistate.JPG" style="width:100%;height:auto;" />
-        <span class="caption">Raspberry Pi state machine</span>
-      </div>
-    </div>
-  </div>
-  <div style="flex:1 0 500px; margin-top:20px;">
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
-      <img src="./media/awaystate.JPG" style="width:90%;height:auto;" />
-      <span class="caption">Away station CC3200 with OLED and IR receiver</span>
+      <img src="./media/states.png" style="width:90%;height:auto;" />
+      <span class="caption">State diagrams for our machines</span>
     </div>
   </div>
 </div>
-
-
-
-
 
 # Implementation
 ## Home Station

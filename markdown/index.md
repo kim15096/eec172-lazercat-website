@@ -40,7 +40,6 @@ Our source code can be found
 While there are existing products such as pet cameras and laser toys, our system offers distinct advantages and unique features. Unlike typical pet lasers, our system allows for manual control of the laser using physical remote controls. Users can navigate the laser manually using arrow keys or select from preset patterns such as Box, Zigzag, and Line modes with the 1, 2, and 3 keys. Additionally, our system boasts a cute and fun interactive GUI display on the remote device, enhancing user engagement and providing a more enjoyable experience. These features set our product apart in the market, offering greater interactivity and customization compared to conventional alternatives.
 
 # Design
-
 ## System Architecture
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;flex-direction:column;">
@@ -55,16 +54,15 @@ While there are existing products such as pet cameras and laser toys, our system
 
 ### Away Device
 
-![Alt text](./media/awaystate.JPG)
 
 The Away Device is designed to be with the user at all times. It comprises the CC3200 microcontroller and a remote control. The CC3200, a powerful and versatile microcontroller, facilitates wireless communication and control. The remote control provides the user with the capability to interact with and manage the system from a distance, ensuring convenience and flexibility in operation. The user can also select and cancel lazer modes through the deployed front-end website.
 
 ### Central System
-![Alt text](./media/AWS.JPG)
+
 The Central System is powered by AWS and serves as the backbone of connectivity and data management. AWS enables the monitoring and updating of the IoT device, providing robust and reliable cloud-based services essential for real-time data processing and device management. In conjunction with AWS, the project's website acts as a comprehensive interface. The website not only provides a user-friendly platform for interacting with the system but also complements the OLED screen by offering additional control and monitoring capabilities. Moreover, the website facilitates near real-time streaming of camera footage from the Home System, enhancing the user's ability to remotely monitor and interact with their environment.
 
 ### Home Station
-![Alt text](./media/statemachines.JPG)
+
 
 The Home Station is centered around a Raspberry Pi, which is responsible for controlling various functionalities including laser game modes, motion detection messaging, and video streaming. This system is critical for executing the interactive features of the project. The Raspberry Pi manages the laser game modes, allowing for different configurations and user-controlled activities. It also handles motion detection, sending alerts and messages based on detected movements. Additionally, the Raspberry Pi streams video footage, which is crucial for real-time monitoring and interaction.
 
@@ -82,15 +80,19 @@ The integration and coordination of these three systems involve the interaction 
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
-      <img src="./media/Image_AWS.JPG" style="width:90%;height:auto;" />
+      <img src="./media/AWS.JPG" style="width:90%;height:auto;" />
       <span class="caption">State Diagram</span>
     </div>
   </div>
 </div>
 
 # Implementation
-
 ## Home Station
+Here we have two state diagrams to show 
+
+<img src="./media/statemachines.JPG" alt="Home Station" width="500px">
+<img src="./media/raspistate.JPG" alt="Home Station" width="500px">
+
 ### Lazer
 
 ### Mounting
@@ -100,6 +102,8 @@ The integration and coordination of these three systems involve the interaction 
 ### AWS Kinesis WebRTC
 ### Custom Web server
 ## Away Device
+![Alt text](./media/awaystate.JPG)
+
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 200px'>
@@ -138,11 +142,11 @@ The integration and coordination of these three systems involve the interaction 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    On both 
+    In order to implement the OLED screen we wired it to our CC3200 and use the SPI protocol.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/Image_009.jpg" style="width:auto;height:2in" />
+      <img src="./media/OLED.png" style="width:auto;height:2in" />
       <span class="caption">IR Receiver Wiring Diagram</span>
     </div>
   </div>

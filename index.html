@@ -96,12 +96,10 @@
     This project is comprised of three core systems, each playing a crucial role in the overall functionality and integration of the system. These systems include the Away Device, the Central System, and the Home Station. Each system incorporates distinct components and functionalities, which collectively ensure seamless operation and user interaction.
 
 <h3 id="away-device">Away Device</h3>
-<p><img src="./media/awaystate.JPG" alt="Alt text" /></p>
 <p>The Away Device is designed to be with the user at all times. It comprises the CC3200 microcontroller and a remote control. The CC3200, a powerful and versatile microcontroller, facilitates wireless communication and control. The remote control provides the user with the capability to interact with and manage the system from a distance, ensuring convenience and flexibility in operation. The user can also select and cancel lazer modes through the deployed front-end website.</p>
 <h3 id="central-system">Central System</h3>
-<p><img src="./media/AWS.JPG" alt="Alt text" /> The Central System is powered by AWS and serves as the backbone of connectivity and data management. AWS enables the monitoring and updating of the IoT device, providing robust and reliable cloud-based services essential for real-time data processing and device management. In conjunction with AWS, the project's website acts as a comprehensive interface. The website not only provides a user-friendly platform for interacting with the system but also complements the OLED screen by offering additional control and monitoring capabilities. Moreover, the website facilitates near real-time streaming of camera footage from the Home System, enhancing the user's ability to remotely monitor and interact with their environment.</p>
+<p>The Central System is powered by AWS and serves as the backbone of connectivity and data management. AWS enables the monitoring and updating of the IoT device, providing robust and reliable cloud-based services essential for real-time data processing and device management. In conjunction with AWS, the project's website acts as a comprehensive interface. The website not only provides a user-friendly platform for interacting with the system but also complements the OLED screen by offering additional control and monitoring capabilities. Moreover, the website facilitates near real-time streaming of camera footage from the Home System, enhancing the user's ability to remotely monitor and interact with their environment.</p>
 <h3 id="home-station">Home Station</h3>
-<p><img src="./media/statemachines.JPG" alt="Alt text" /></p>
 <p>The Home Station is centered around a Raspberry Pi, which is responsible for controlling various functionalities including laser game modes, motion detection messaging, and video streaming. This system is critical for executing the interactive features of the project. The Raspberry Pi manages the laser game modes, allowing for different configurations and user-controlled activities. It also handles motion detection, sending alerts and messages based on detected movements. Additionally, the Raspberry Pi streams video footage, which is crucial for real-time monitoring and interaction.</p>
 <p>The integration and coordination of these three systems involve the interaction of several Finite State Machines (FSMs). The complexity of managing multiple FSMs to ensure seamless communication and functionality across the Away, Central, and Home Systems posed significant challenges. These FSMs are responsible for maintaining the state and behavior of each component, ensuring they respond appropriately to user inputs and system events.</p>
   </div>
@@ -116,7 +114,7 @@
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
-      <img src="./media/Image_AWS.JPG" style="width:90%;height:auto;" />
+      <img src="./media/AWS.JPG" style="width:90%;height:auto;" />
       <span class="caption">State Diagram</span>
     </div>
   </div>
@@ -124,6 +122,10 @@
 
 <h1 id="implementation">Implementation</h1>
 <h2 id="home-station-1">Home Station</h2>
+<p>Here we have two state diagrams to show</p>
+<img src="./media/statemachines.JPG" alt="Home Station" width="500px">
+<img src="./media/raspistate.JPG" alt="Home Station" width="500px">
+
 <h3 id="lazer">Lazer</h3>
 <h3 id="mounting">Mounting</h3>
 <h2 id="central-servers">Central Servers</h2>
@@ -131,6 +133,7 @@
 <h3 id="aws-kinesis-webrtc">AWS Kinesis WebRTC</h3>
 <h3 id="custom-web-server">Custom Web server</h3>
 <h2 id="away-device-1">Away Device</h2>
+<p><img src="./media/awaystate.JPG" alt="Alt text" /></p>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 200px'>
     The AWS IoT core allows our devices to communicate with each other
@@ -166,11 +169,11 @@
 <h3 id="setting-up-oled">Setting up OLED</h3>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    On both 
+    In order to implement the OLED screen we wired it to our CC3200 and use the SPI protocol.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
-      <img src="./media/Image_009.jpg" style="width:auto;height:2in" />
+      <img src="./media/OLED.png" style="width:auto;height:2in" />
       <span class="caption">IR Receiver Wiring Diagram</span>
     </div>
   </div>

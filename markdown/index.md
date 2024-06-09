@@ -110,9 +110,13 @@ The mountings seen in the home station were the combination of various 3D models
 ### Custom Web server
 ## Away Device
 
-<div style="text-align: center;">
-<img src="./media/awaystate.JPG" alt="Home Station" width="500px">
-<div>
+
+<div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
+    <div class="fig">
+      <img src="./media/awaystate.JPG" style="width:auto;height:2in" />
+      <span class="caption">Home Station</span>
+    </div>
+  </div>
 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">

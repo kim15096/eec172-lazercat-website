@@ -55,7 +55,8 @@ While there are existing products such as pet cameras and laser toys, our system
 
 ### Away Device
 
-![Alt text](eec172-lazercat-website/media/awaystate.JPG)
+![Alt text](./media/awaystate.JPG)
+
 The Away Device is designed to be with the user at all times. It comprises the CC3200 microcontroller and a remote control. The CC3200, a powerful and versatile microcontroller, facilitates wireless communication and control. The remote control provides the user with the capability to interact with and manage the system from a distance, ensuring convenience and flexibility in operation. The user can also select and cancel lazer modes through the deployed front-end website.
 
 ### Central System

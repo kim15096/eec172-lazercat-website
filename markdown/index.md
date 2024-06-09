@@ -9,12 +9,39 @@ may not fulfill all stated requirements of the current quarter''s
 assignment.<br/>The website source is hosted 
 <a href="https://github.com/ucd-eec172/project-website-example">on github</a>.
 </blockquote>'
+---
+
+# <h2>Description</h2>
+
+Hydroponics is a technique where plants are grown in a nutrient-rich solution. This soil-free technique has been gaining traction recently due to its ability to optimize resource utilization. However, since plants are highly sensitive to changes in TDS, hydroponic setups require continuous TDS monitoring and adjustment. NutriSense, our device, allows hobbyists to achieve ideal hydroponics results on a small scale. It continuously monitors TDS and temperature, allowing the user to remotely read the status over AWS IoT cloud. The user can remotely enter upper and lower thresholds for TDS, and the device will automatically add nutrient solution or water to keep the TDS bounded by the thresholds. The device can also be configured to send notifications over SNS when the TDS value goes outside thresholds.
+
+Our source code can be found [here](https://github.com/kim15096/eec172-finalproject-lazercat).
+
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;padding-top:20px">
+  <div style="display: inline-block; vertical-align: bottom;">
+    <img src="./media/home_station.jpeg" style="width:auto;height:2in"/>
+    <!-- <span class="caption"> </span> -->
+  </div>
+  <div style="display: inline-block; vertical-align: bottom;">
+    <img src="./media/Image_002.jpg" style="width:auto;height:2in" />
+    <!-- <span class="caption"> </span> -->
+  </div>
+</div>
+
+## Video Demo
+
+<div style="text-align:center;margin:auto;max-width:560px">
+  <div style="padding-bottom:56.25%;position:relative;height:0;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/yG8Bkn4AS34?si=KMJsmiFA9RZ1XC99" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+</div>
 
 # Table of Contents
 
 ## <h2>Description</h2>
 
-Hydroponics is a technique where p
+Hydroponics is a technique where plants are grown in a nutrient-rich solution. This soil-free technique has been gaining traction recently due to its ability to optimize resource utilization. However, since plants are highly sensitive to changes in TDS, hydroponic setups require continuous TDS monitoring and adjustment. NutriSense, our device, allows hobbyists to achieve ideal hydroponics results on a small scale. It continuously monitors TDS and temperature, allowing the user to remotely read the status over AWS IoT cloud. The user can remotely enter upper and lower thresholds for TDS, and the device will automatically add nutrient solution or water to keep the TDS bounded by the thresholds. The device can also be configured to send notifications over SNS when the TDS value goes outside thresholds.
+
 Our source code can be found [here](https://github.com/kim15096/eec172-finalproject-lazercat).
 
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;padding-top:20px">
@@ -107,7 +134,6 @@ There are two types of similar product on the market. The first one is
 ### CC3200-LAUNCHXL Evaluation Board
 
 All control and logic was handled by two CC3200 microcontroller units,
-
 
 ## Functional Blocks: Master
 
@@ -251,7 +277,6 @@ two-probe implementation was not feasible.
 
 ## Solution to Challenges
 
-
 the results were accurate within 3%, and would not drift by more than
 0.5% over time.
 
@@ -260,7 +285,4 @@ the results were accurate within 3%, and would not drift by more than
 Given more time, we had the idea of developing a web app to allow users
 to control the device from their cell phone. Another idea we wanted to
 
-
-
 # Finalized BOM
-

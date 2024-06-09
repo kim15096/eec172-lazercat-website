@@ -111,6 +111,18 @@ The integration and coordination of these three systems involve the interaction 
   </div>
 </div>
 
+### IR Sensor
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+    To allow the user to receive notifications vis SNS over AWS that their cat was nearby the home station we utilize a mounted HC-SR501 IR sensor. This sensor is configured to have a very long delay which is adjustable on the device. This prevented the detector from going off too often. The IR sensor is wired to the CC3200 and utilizes a GPIO interupt so signal that the IR sensor has been triggered. 
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
+    <div class="fig">
+      <img src="./media/motionsensor.JPG" style="width:90%;height:auto;" />
+      <span class="caption">Home station with motion sensor on bottom left</span>
+    </div>
+  </div>
+</div>
 
 
 
@@ -118,7 +130,19 @@ The integration and coordination of these three systems involve the interaction 
 The laser is on a 2 axis servo system. The servos themselves use are controlled by PWM and in order to control them we had to implement our own version of the 20mS period 1%-10% duty cycle of PWM to communicate with these servos. By associating the percentage of duty cyle with the position of the servo we were able to utilize servo structs in our code to control each of them independently and in a coordinated manner so as to facilitate game modes for the user to select. 
 
 ### Mounting
-The mountings seen in the home station were the combination of various 3D models. (See references at bottom) I created a central plane for the home station and added a custom protoboard PCB. This was more robust and compact when compared to the breadboard. I then added 2.5mm mounting for the CC3200 and the Raspi. From there I took a design for a ball and socket, scaled to a size to fit our needs and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D printed container. We fear that the raspi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D printed module that allows for wiring to be routed and freedom of movement for both servos. 
+
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+  The mountings seen in the home station were the combination of various 3D models. (See references at bottom) I created a central plane for the home station and added a custom protoboard PCB. This was more robust and compact when compared to the breadboard. I then added 2.5mm mounting for the CC3200 and the Raspi. From there I took a design for a ball and socket, scaled to a size to fit our needs and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D printed container. We fear that the raspi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D printed module that allows for wiring to be routed and freedom of movement for both servos. 
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
+    <div class="fig">
+      <img src="./media/PCB.JPG" style="width:90%;height:auto;" />
+      <span class="caption">PCB for the homestation CC3200 to integrate devices</span>
+    </div>
+  </div>
+</div>
+
 
 ## Central Servers
 ### AWS IoT Core

@@ -30,6 +30,7 @@
 <ul>
 <li><a href="#home-station-1">Home Station</a>
 <ul>
+<li><a href="#ir-sensor">IR Sensor</a></li>
 <li><a href="#lazer">Lazer</a></li>
 <li><a href="#mounting">Mounting</a></li>
 </ul></li>
@@ -147,10 +148,34 @@
   </div>
 </div>
 
+<h3 id="ir-sensor">IR Sensor</h3>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+    To allow the user to receive notifications vis SNS over AWS that their cat was nearby the home station we utilize a mounted HC-SR501 IR sensor. This sensor is configured to have a very long delay which is adjustable on the device. This prevented the detector from going off too often. The IR sensor is wired to the CC3200 and utilizes a GPIO interupt so signal that the IR sensor has been triggered. 
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
+    <div class="fig">
+      <img src="./media/motionsensor.JPG" style="width:90%;height:auto;" />
+      <span class="caption">Home station with motion sensor on bottom left</span>
+    </div>
+  </div>
+</div>
+
 <h3 id="lazer">Lazer</h3>
 <p>The laser is on a 2 axis servo system. The servos themselves use are controlled by PWM and in order to control them we had to implement our own version of the 20mS period 1%-10% duty cycle of PWM to communicate with these servos. By associating the percentage of duty cyle with the position of the servo we were able to utilize servo structs in our code to control each of them independently and in a coordinated manner so as to facilitate game modes for the user to select.</p>
 <h3 id="mounting">Mounting</h3>
-<p>The mountings seen in the home station were the combination of various 3D models. (See references at bottom) I created a central plane for the home station and added a custom protoboard PCB. This was more robust and compact when compared to the breadboard. I then added 2.5mm mounting for the CC3200 and the Raspi. From there I took a design for a ball and socket, scaled to a size to fit our needs and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D printed container. We fear that the raspi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D printed module that allows for wiring to be routed and freedom of movement for both servos.</p>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
+  The mountings seen in the home station were the combination of various 3D models. (See references at bottom) I created a central plane for the home station and added a custom protoboard PCB. This was more robust and compact when compared to the breadboard. I then added 2.5mm mounting for the CC3200 and the Raspi. From there I took a design for a ball and socket, scaled to a size to fit our needs and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D printed container. We fear that the raspi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D printed module that allows for wiring to be routed and freedom of movement for both servos. 
+  </div>
+  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
+    <div class="fig">
+      <img src="./media/PCB.JPG" style="width:90%;height:auto;" />
+      <span class="caption">PCB for the homestation CC3200 to integrate devices</span>
+    </div>
+  </div>
+</div>
+
 <h2 id="central-servers">Central Servers</h2>
 <h3 id="aws-iot-core">AWS IoT Core</h3>
 <h3 id="aws-kinesis-webrtc">AWS Kinesis WebRTC</h3>
@@ -158,9 +183,9 @@
 <h2 id="away-device-1">Away Device</h2>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
   <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-    Our system works based on the following state diagram. The device will
-    thresholds and go back to the rest state. In each state, the device will
-    periodically post the TDS.
+
+<p>WHAT IS THIS BIT FOR????????????</p>
+<p>DELETES? Our system works based on the following state diagram. The device will thresholds and go back to the rest state. In each state, the device will periodically post the TDS.</p>
   </div>
   <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
     <div class="fig">
@@ -170,23 +195,10 @@
   </div>
 </div>
 
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 200px'>
-    The AWS IoT core allows our devices to communicate with each other
-    asynchronously. The master device can update the desired thresholds, and
-    the slave device will read them and synchronize them to the reported
-    state. The slave device will also post the TDS and temperature readings
-    periodically.
-    </div>
-</div>
-
 <h3 id="setting-up-ir-receiver">Setting up IR Receiver</h3>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    On both Master and Slave devices, the user can view the current TDS and
-    temperature of the plant solution on an OLED display. The user can also
-    use the display to view and edit the TDS thresholds. The CC3200 uses the
-    SPI bus to communicate with the display module.
+    The key component in the users' ability to communicate with the CC3200 is the Vishay made IR receiver. Using the NEC code IR protocol we were able to utilize GPIO interrupts on the CC3200 to detect message wave forms as they were broadcast by an IR remote control. By parsing these messages from the user it can allow for laser control and menu surfing through the game modes.   
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">
@@ -199,7 +211,7 @@
 <h3 id="setting-up-oled">Setting up OLED</h3>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
   <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    In order to implement the OLED screen we wired it to our CC3200 and use the SPI protocol.
+    To give the user a GUI we utilized this OLED screen. By connecting the OLED to the CC3200 via an SPI bus we were able to refesh and update the screen responsively to users' input.
   </div>
   <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
     <div class="fig">

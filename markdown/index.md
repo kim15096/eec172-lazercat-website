@@ -76,12 +76,10 @@ The integration and coordination of these three systems involve the interaction 
     In these diagrams we can see the state machines we designed. These three machines all start in idle modes and wait on user input. For the away CC3200 the input is the IR controller. For the home station and the Raspberry Pi the user initiates contact through the website in order to start streaming video or to configure the laser modes.
   </div>
 </div>
-<div style="display:flex;justify-content:center;align-items:center;margin-top:10px;">
-  <div class="fig" style="text-align:center;">
-    <img src="./media/states.png" style="width:90%;height:auto;" />
-    <span class="caption">State diagrams for our machines</span>
-  </div>
-</div>
+
+<p align="center">
+  <img src="./media/states.png" style="width:90%;height:auto;" />
+</p>
 
 
 # Implementation

@@ -117,13 +117,14 @@ The laser is on a 2 axis servo system. The servos themselves use are controlled 
   </div>
 </div>
 
+## Away Device
+The away station is a CC3200 controlled assembly. The intention is that if the user does not have acces to the website to control the laser, they can instead utilize the IR remote control with this assembly. The user is able to send messages over IR NEC protocol to the CC3200 where the user can switch between various games mode and settings. The user can see their controller inputs on the CC3200 in real time with the integrated OLED screen. 
 
 ## Central Servers
 ### AWS IoT Core
 ### AWS Kinesis WebRTC
 ### Custom Web server
-## Away Device
-The away station is a CC3200 controlled assembly. The intention is that if the user does not have acces to the website to control the laser, they can instead utilize the IR remote control with this assembly. The user is able to send messages over IR NEC protocol to the CC3200 where the user can switch between various games mode and settings. The user can see their controller inputs on the CC3200 in real time with the integrated OLED screen. 
+
 
 
 
@@ -168,11 +169,17 @@ A major challenge was selecting the appropriate libraries and SDKs for the custo
 
 An attempt was made to implement a manual laser mode using real-time updates from a TV remote. However, this approach was unsuccessful due to inherent delays in motor responses to inputs, which could not be mitigated. Despite this, we learned valuable lessons about the limitations of the hardware we were using.
 
+There were some significant challenges with powering the laser, IR sensor and servos of the home station assembly. The voltage driven by a CC3200 pin was only around 3.2VCC. While the voltage for the laser is from 3-4.95 VCC, we were likely not able to draw enough current from the CC3200 to power the laser properly. The servo motors were also suffering from under voltage and were prone to stuttering or locking up. We were running this from the 5V rail off of the CC3200, but we assume that it was current that was the limiting factor leading to the servos not operating as intended. The IR motion sensor did end up working on it's own and sending data via GPIO while powered off of VCC.
+
+The solution that we implemented to deal with the undercurrent issues was to add an additional power supply. This power would go into the laser beam and into the two servos. Simply by connecting the ground of a 5V 1A power supply to the common CC3200 ground, the servo and laser had their own power source. A new issue arose when the CC3200 could not drive a high enough voltage to turn on the laser control pin. It was decided to add a relay to the protoboard so that the small voltage GPIO signal from the CC3200 was the control signal and this would then connect VDD from the external power supply rail to the laser so that it would turn on. This solution worked and all of the systems were able to perform as expected. 
+
+What was at first thought to be an easier task, we utilized the PWM example from the CC3200 SDK. It was programmed to have a operating period of around 1us when I needed a period of around 1mS. After trying to configure the systick timer to accommodate this change in period, but it was ultimately decided to abandoned the example and instead improvise with the GPIO pins. To achieve the desired period and duty cycle I would set the GPIO high, wait for a delay, then power that pin low. This was a defacto PWM signal and we were able to control the two axis servo system to within 1% of it's duty cycle ranging from  0%-10%.  
+
 Overall, the project involved overcoming a series of complex technical challenges. Despite the difficulties, we were able to find solutions for most of the issues, resulting in a functional and integrated system. The experience has been incredibly educational, highlighting the importance of persistence and problem-solving in tackling sophisticated technical projects.
 
 # Future Work
 
-Due to the limitations of the motors, we were unable to fully implement the manual control mode of the laser. The inherent delays in motor responses prevented the system from achieving the desired real-time control. To overcome this, future work will focus on minimizing stream delay to enhance the responsiveness of the manual control system. This could involve optimizing the current setup or exploring alternative hardware solutions that offer faster response times. Additionally, improving the control algorithms to ensure smoother and more precise movements will be a priority. These enhancements will make the manual control mode more reliable and user-friendly.
+Due to the limitations of the servos, we were unable to fully implement the manual control mode of the laser. The inherent delays in motor responses prevented the system from achieving the desired real-time control. To overcome this, future work will focus on minimizing stream delay to enhance the responsiveness of the manual control system. This could involve optimizing the current setup or exploring alternative hardware solutions that offer faster response times. Additionally, improving the control algorithms to ensure smoother and more precise movements will be a priority. These enhancements will make the manual control mode more reliable and user-friendly.
 
 Another significant area for future development is the implementation of an advanced laser mode that moves in random speeds and directions. This feature would add a dynamic and unpredictable element to the system, increasing its versatility and potential applications. Developing this mode will require sophisticated algorithms that can generate random patterns while ensuring the laser moves safely and effectively within its operational environment. The integration of sensors to monitor the laser's position and adjust its movement in real-time could further enhance this feature.
 

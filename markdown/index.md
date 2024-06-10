@@ -78,7 +78,7 @@ The integration and coordination of these three systems involve the interaction 
 </div>
 
 <p align="center">
-  <img src="./media/states.png" style="width:90%;height:auto;" />
+  <img src="./media/states.JPG" style="width:90%;height:auto;" />
 </p>
 
 

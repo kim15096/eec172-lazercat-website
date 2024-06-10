@@ -54,7 +54,6 @@ While there are existing products such as pet cameras and laser toys, our system
 
 ### Away Device
 
-
 The Away Device is designed to be with the user at all times. It comprises the CC3200 microcontroller and a remote control. The CC3200, a powerful and versatile microcontroller, facilitates wireless communication and control. The remote control provides the user with the capability to interact with and manage the system from a distance, ensuring convenience and flexibility in operation. The user can also select and cancel lazer modes through the deployed front-end website.
 
 ### Central System
@@ -72,15 +71,15 @@ The integration and coordination of these three systems involve the interaction 
 
 ## Functional Specification
 
-<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;flex-direction:column;align-items:center;">
-  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;margin-bottom:0;">
+<div style="display:flex;flex-wrap:wrap;justify-content:center;flex-direction:column;align-items:center;">
+  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
     In these diagrams we can see the state machines we designed. These three machines all start in idle modes and wait on user input. For the away CC3200 the input is the IR controller. For the home station and the Raspberry Pi the user initiates contact through the website in order to start streaming video or to configure the laser modes.
   </div>
-  <div style="display:inline-block;vertical-align:top;flex:0 0 500px;margin-top:0;">
-    <div class="fig">
-      <img src="./media/states.png" style="width:90%;height:auto;" />
-      <span class="caption">State diagrams for our machines</span>
-    </div>
+</div>
+<div style="display:flex;justify-content:center;align-items:center;margin-top:10px;">
+  <div class="fig" style="text-align:center;">
+    <img src="./media/states.png" style="width:90%;height:auto;" />
+    <span class="caption">State diagrams for our machines</span>
   </div>
 </div>
 

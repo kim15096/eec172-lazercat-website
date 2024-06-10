@@ -1,10 +1,10 @@
 ---
-title: 'LazerCat: Play with your cat remotely!'
+title: 'LazerCat: Play With Your Cat Remotely!'
 author: '**By: Andrew Kim and Rocco Scinto**'
 date: '*EEC172 SQ24*'
 toc-title: 'Table of Contents'
 abstract-title: '<h2>Description</h2>'
-abstract: 'LazerCat is an innovative toy designed for cat owners, enabling them to interact with their pets remotely through a controlled laser pointer and live video feed. Utilizing AWS WebRTC and IoT for seamless cloud integration, the system consists of three main components: a home-based CC3200 module, an away CC3200 module, and a Raspberry Pi. The home module manages local motion detection and AWS-triggered laser control, while the away module allows users to send commands via an IR remote, displaying these commands on an OLED screen and forwarding them to AWS. The Raspberry Pi handles video streaming, activating upon motion detection or user request to provide live footage of the cat activities. Implementation goals range from basic laser activation and motion sensor functionality to advanced features like pre-programmed laser routines, sound playback, and real-time video streaming. The project aims to keep cats entertained and active, providing peace of mind to owners.
+abstract: 'LazerCat is an innovative toy designed for cat owners, enabling them to interact with their pets remotely through a controlled laser pointer and live video feed. Utilizing AWS WebRTC and IoT for seamless cloud integration, the system consists of three main components: a home-based CC3200 and Raspberry Pi station, an away CC3200 module, and central servers. The home station manages local motion detection and AWS-triggered laser control, while the away device allows users to send commands via an IR remote, displaying these commands on an OLED screen and forwarding them to AWS to update the shadow states. The Raspberry Pi handles video streaming, activating upon user request through our web app to provide live footage of the cat activities. Our implementation goals range from basic laser activation and motion sensor functionality to advanced features like pre-programmed laser routines, and real-time video streaming with minimal delay. Our project aims to keep cats entertained and active and also allow users to play with their cats from far away.
 <br/><br/>
 Our source code can be found 
 <!-- replace this link -->
@@ -29,7 +29,7 @@ Our source code can be found
 <h2 style="margin-top: 30px;">Video Demo</h2>
 <div style="text-align:center;margin:auto;max-width:100%;margin-bottom: 30px;">
   <div style="padding-bottom:56.25%;position:relative;height:0;">
-    <iframe width="100%" max-width:"1080px" height="512px" src="https://www.youtube.com/embed/yG8Bkn4AS34?si=wD6o4UksnduuIuFD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="90%" max-width:"1080px" height="512px" src="https://www.youtube.com/embed/yG8Bkn4AS34?si=wD6o4UksnduuIuFD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 </div>
 '
@@ -38,6 +38,11 @@ Our source code can be found
 # Market Survey
 
 While there are existing products such as pet cameras and laser toys, our system offers distinct advantages and unique features. Unlike typical pet lasers, our system allows for manual control of the laser using physical remote controls. Users can navigate the laser manually using arrow keys or select from preset patterns such as Box, Zigzag, and Line modes with the 1, 2, and 3 keys. Additionally, our system boasts a cute and fun interactive GUI display on the remote device, enhancing user engagement and providing a more enjoyable experience. These features set our product apart in the market, offering greater interactivity and customization compared to conventional alternatives.
+
+<div class="fig">
+      <img src="./media/market.jpg" style="width:20%;height:auto;" />
+      <span class="caption">Existing product: VSTARCAM Pet Camera with Laser</span>
+    </div>
 
 # Design
 ## System Architecture
@@ -53,137 +58,136 @@ While there are existing products such as pet cameras and laser toys, our system
     This project is comprised of three core systems, each playing a crucial role in the overall functionality and integration of the system. These systems include the Away Device, the Central System, and the Home Station. Each system incorporates distinct components and functionalities, which collectively ensure seamless operation and user interaction.
 
 ### Away Device
-
-The Away Device is designed to be with the user at all times. It comprises the CC3200 microcontroller and a remote control. The CC3200, a powerful and versatile microcontroller, facilitates wireless communication and control. The remote control provides the user with the capability to interact with and manage the system from a distance, ensuring convenience and flexibility in operation. The user can also select and cancel lazer modes through the deployed front-end website.
+The Away Device consists of another CC3200 module, serving as the remote user interface. Users can select the laser modes via a TV remote control, which are displayed on an integrated OLED screen for confirmation. The device then updates the device shadow states to reflect the user's selection. The user can also select the laser modes via our VueJS Web App which is also the place to view the live stream.
 
 ### Central System
-
-The Central System is powered by AWS and serves as the backbone of connectivity and data management. AWS enables the monitoring and updating of the IoT device, providing robust and reliable cloud-based services essential for real-time data processing and device management. In conjunction with AWS, the project's website acts as a comprehensive interface. The website not only provides a user-friendly platform for interacting with the system but also complements the OLED screen by offering additional control and monitoring capabilities. Moreover, the website facilitates near real-time streaming of camera footage from the Home System, enhancing the user's ability to remotely monitor and interact with their environment.
+The Central System is powered by AWS cloud services and a custom Express.js web server. The AWS services include AWS Kinesis WebRTC for low-latency live video streaming and AWS IoT Core for controlling device shadow states. The custom web server manages user interactions in our Web App and interfaces with the AWS services. It also utilizes Web Sockets to communicate back to our Web App and to signal our Rasp Pi to start the streaming. The Central System acts to connect all our systems together online for seamless communication between the devices.
 
 ### Home Station
-
-
-The Home Station is centered around a Raspberry Pi, which is responsible for controlling various functionalities including laser game modes, motion detection messaging, and video streaming. This system is critical for executing the interactive features of the project. The Raspberry Pi manages the laser game modes, allowing for different configurations and user-controlled activities. It also handles motion detection, sending alerts and messages based on detected movements. Additionally, the Raspberry Pi streams video footage, which is crucial for real-time monitoring and interaction.
-
-The integration and coordination of these three systems involve the interaction of several Finite State Machines (FSMs). The complexity of managing multiple FSMs to ensure seamless communication and functionality across the Away, Central, and Home Systems posed significant challenges. These FSMs are responsible for maintaining the state and behavior of each component, ensuring they respond appropriately to user inputs and system events.
+The Home Station is composed of a Raspberry Pi and a CC3200 module. The Raspberry Pi is dedicated to live video streaming, remaining idle until triggered by a user command through our web app. Once activated, it turns on the Pi Camera and starts the master stream where the viewer can connect. Complementing the Raspberry Pi, the CC3200 module at the Home Station acts as the base for laser control and motion detection. It stays in an idle state until it detects motion locally or receives an update from the AWS IoT Cloud. Using AWS SNS, an email will also be sent out to subscribed users when motion is detected.
   </div>
 </div>
 
 ## Functional Specification
 
-  In these diagrams we can see the state machines we designed. These three machines all start in idle modes and wait on user input. For the away CC3200 the input is the IR controller. For the home station and the Raspberry Pi the user initiates contact through the website in order to start streaming video or to configure the laser modes.
+  Our project required quite several FSMs to work in conjunction. We will explore each FSM below to see how our system works exactly.
 
-<p align="center" style="margin-top:0;">
-  <img src="./media/states.JPG" style="width:90%;height:auto;" />
-</p>
+First, we have the two FSMs for our home station. In the figure below, we see that the CC3200 starts in an idle state. Here it is constantly listening to the GPIO interrupt for the motion detector sensor so it can send an email to the user. It is also waiting for the AWS shadow state to update. Every two seconds the CC3200 sends a GET request to AWS and checks in on the shadow state. If there is a change to one of the game modes or laser modes, then the CC3200 will prepare the servo and laser, and then perform the task desired by the user.
 
+<div class="fig" style="margin-bottom: 40px;">
+      <img src="./media/homecc3200state.JPG" style="width:60%;height:auto;" />
+      <span class="caption">CC3200 Home State Diagram</span>
+    </div>
 
+For the Raspberry Pi, there is also this idle state where the running program waits for the website camera power button to be activated. Once the user wishes to start a live stream, the master stream program is executed in the Raspberry Pi and the frames are fed in through Gstreamer and sent to the AWS. Then, the user can connect to the endpoint URL provided by our custom web server and connect as the viewer to see their cat play with the laser in real time.
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/raspistate.JPG" style="width:60%;height:auto;" />
+  <span class="caption">Raspberry Pi Home State Diagram</span>
+</div>
+
+Next, we have the FSM for our away device. Similar to how our other FSMs work, the device is in idle, waiting for IR interrupts from our TV remote controller. The user can use the arrow buttons or the one, two, or three buttons to select different laser modes. The users can interact with our OLED screen through its GUI which will update the shadow states in AWS. The device also polls GET requests to catch any updates in the cloud.
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/awaystate.JPG" style="width:60%;height:auto;" />
+  <span class="caption">Away Device Home State Diagram</span>
+</div>
 
 # Implementation
 ## Home Station
-The CC3200 and Raspberry Pi work in tandem to provide the user with a fun experience. We see that each machine is in an idle state awaiting a stimulus from the user or a motion detector. This will then initiate the machines to enter their operation loops where the Raspberry Pi is streaming video and the CC3200 is controlling the servo as per the user's instructions.
+This is the home station that utilizes the CC3200 to control laser movements and send the user motion detection notifications. The CC3200 and Raspberry Pi work in tandem to provide the user with a fun experience. We see that each machine is in an idle state awaiting a stimulus from the user or a motion detector. This will then initiate the machines to enter their operation loops where the Raspberry Pi is streaming video and the CC3200 is controlling the servo as per the user's instructions.
 
+In conjunction with the CC3200 at the home station we needed to add a machine for video streaming. While the CC3200 does have a camera hat, we were not able to requisition one in time and decided to use a Raspberry Pi. The Raspberry Pi state diagram above shows how the Raspberry Pi turns the Pi camera on and starts streaming. We created our own Python script which runs on boot using Cronjobs for easy plug-and-play. To start the master stream, we are using the provided kvsWebRtcMasterStream sample program provided by AWS and executing or terminating this program based on the Camera On/Off state provided through the web sockets.
 
+To allow the user to receive notifications via SNS over AWS that their cat was nearby the home station, we utilize a mounted HC-SR501 IR sensor. This sensor shown in the figure below is configured to have a very long delay which is adjustable on the device. This prevented the detector from going off too often. The IR sensor is wired to the CC3200 and utilizes a GPIO interrupt to signal that the IR sensor has been triggered. 
 
-### IR Sensor
-<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
-  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-    To allow the user to receive notifications vis SNS over AWS that their cat was nearby the home station we utilize a mounted HC-SR501 IR sensor. This sensor is configured to have a very long delay which is adjustable on the device. This prevented the detector from going off too often. The IR sensor is wired to the CC3200 and utilizes a GPIO interupt so signal that the IR sensor has been triggered. 
-  </div>
-  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
-    <div class="fig">
-      <img src="./media/motionsensor.JPG" style="width:90%;height:auto;" />
-      <span class="caption">Home station with motion sensor on bottom left</span>
-    </div>
-  </div>
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/motionsensor.JPG" style="width:40%;height:auto;" />
+  <span class="caption">IR motion detector on bottom left of home station</span>
 </div>
 
+The mountings seen in the home station were a combination of various 3D models. We created a central plane for the home station and added a custom protoboard. 
 
-
-### Lazer
-The laser is on a 2 axis servo system. The servos themselves use are controlled by PWM and in order to control them we had to implement our own version of the 20mS period 1%-10% duty cycle of PWM to communicate with these servos. By associating the percentage of duty cyle with the position of the servo we were able to utilize servo structs in our code to control each of them independently and in a coordinated manner so as to facilitate game modes for the user to select. 
-
-### Mounting
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-evenly;">
-  <div style="display:inline-block;vertical-align:top;flex:1 0 300px;">
-  The mountings seen in the home station were the combination of various 3D models. (See references at bottom) I created a central plane for the home station and added a custom protoboard PCB. This was more robust and compact when compared to the breadboard. I then added 2.5mm mounting for the CC3200 and the Raspi. From there I took a design for a ball and socket, scaled to a size to fit our needs and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D printed container. We fear that the raspi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D printed module that allows for wiring to be routed and freedom of movement for both servos. 
-  </div>
-  <div style="display:inline-block;vertical-align:top;flex:0 0 500px">
-    <div class="fig">
-      <img src="./media/PCB.JPG" style="width:90%;height:auto;" />
-      <span class="caption">PCB for the homestation CC3200 to integrate devices</span>
-    </div>
-  </div>
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/PCB.JPG" style="width:40%;height:auto;" />
+  <span class="caption">Protoboard to replace breadboard</span>
 </div>
 
-## Away Device
-The away station is a CC3200 controlled assembly. The intention is that if the user does not have acces to the website to control the laser, they can instead utilize the IR remote control with this assembly. The user is able to send messages over IR NEC protocol to the CC3200 where the user can switch between various games mode and settings. The user can see their controller inputs on the CC3200 in real time with the integrated OLED screen. 
+This was more robust and compact when compared to the breadboard. We then added 2.5mm mounting for the CC3200 and the Raspberry Pi. From there, we took a design for a ball and socket, scaled to a size to fit our needs, and printed the mounts for the camera and the laser. The camera is also enclosed in a 3D-printed container. We fear that the Raspberry Pi container is not well vented enough, but that could be easily addressed in a beta version. The laser itself is held in place by a 3D-printed module that allows for wiring to be routed and freedom of movement for both servos. The initial sketch for the protoboard can be seen at the bottom of figure \ref{fig:PWMdiagram}
 
-## Central Servers
-### AWS IoT Core
-### AWS Kinesis WebRTC
-### Custom Web server
+There were some significant challenges with powering the laser, IR sensor and servos of the home station assembly. The voltage driven by a CC3200 pin was only around 3.2VCC. While the voltage for the laser is from 3-4.9 VCC, we were likely not able to draw enough current from the CC3200 to power the laser properly. The servo motors were also suffering from under voltage and were prone to stuttering or locking up. We were running this from the 5V rail off of the CC3200, but we assume that it was current that was the limiting factor leading to the servos not operating as intended. The IR motion sensor did end up working on its own and sending data via GPIO while powered off of VCC.
 
-
-
-
-
-### Setting up IR Receiver
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    The key component in the users' ability to communicate with the CC3200 is the Vishay made IR receiver. Using the NEC code IR protocol we were able to utilize GPIO interrupts on the CC3200 to detect message wave forms as they were broadcast by an IR remote control. By parsing these messages from the user it can allow for laser control and menu surfing through the game modes.   
-  </div>
-  <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
-    <div class="fig">
-      <img src="./media/away_circuit.jpg" style="width:auto;height:2in" />
-      <span class="caption">IR Receiver Wiring Diagram</span>
-    </div>
-  </div>
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/power.JPG" style="width:40%;height:auto;" />
+  <span class="caption">Power distribution of home station</span>
 </div>
-
-### Setting up OLED
-
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;">
-  <div style='display: inline-block; vertical-align: top;flex:1 0 400px'>
-    To give the user a GUI we utilized this OLED screen. By connecting the OLED to the CC3200 via an SPI bus we were able to refesh and update the screen responsively to users' input.
-  </div>
-  <div style='display: inline-block; vertical-align: top;flex:0 0 400px'>
-    <div class="fig">
-      <img src="./media/OLED.png" style="width:auto;height:2in" />
-      <span class="caption">OLED wiring to implment SPI</span>
-    </div>
-  </div>
-</div>
-
-# Challenges
-
-The final project presented numerous challenges, primarily due to the complexity of integrating a custom web server with AWS IoT and AWS WebRTC to function seamlessly together. The logistics of combining these components were particularly daunting, requiring extensive troubleshooting and fine-tuning to ensure they worked harmoniously.
-
-Implementing live streaming with AWS Kinesis WebRTC was notably difficult, especially since it was our first attempt. Initially, we focused on using a computer camera as the master device. Once we managed to get this working, we transitioned to implementing it on a Raspberry Pi, which introduced new challenges. Ensuring minimal delay and acceptable resolution was critical. Additionally, configuring the Raspberry Pi to work with the PiCam required dealing with outdated versions and setting GStreamer parameters for optimal performance.
-
-Another significant challenge was setting the Raspberry Pi to run the necessary Python script on boot for a plug-and-play experience. This task involved resolving numerous issues, which we eventually overcame using cron jobs to automate the process. This was essential for the smooth operation of our project.
-
-A major challenge was selecting the appropriate libraries and SDKs for the custom web server to detect updates to the device shadow. Instead of using polling GET requests, we successfully implemented a solution using MQTT topics and subscriptions. This approach required a deep understanding of MQTT protocols and AWS IoT functionalities, making it a complex but rewarding task.
-
-An attempt was made to implement a manual laser mode using real-time updates from a TV remote. However, this approach was unsuccessful due to inherent delays in motor responses to inputs, which could not be mitigated. Despite this, we learned valuable lessons about the limitations of the hardware we were using.
-
-There were some significant challenges with powering the laser, IR sensor and servos of the home station assembly. The voltage driven by a CC3200 pin was only around 3.2VCC. While the voltage for the laser is from 3-4.95 VCC, we were likely not able to draw enough current from the CC3200 to power the laser properly. The servo motors were also suffering from under voltage and were prone to stuttering or locking up. We were running this from the 5V rail off of the CC3200, but we assume that it was current that was the limiting factor leading to the servos not operating as intended. The IR motion sensor did end up working on it's own and sending data via GPIO while powered off of VCC.
 
 The solution that we implemented to deal with the undercurrent issues was to add an additional power supply. This power would go into the laser beam and into the two servos. Simply by connecting the ground of a 5V 1A power supply to the common CC3200 ground, the servo and laser had their own power source. A new issue arose when the CC3200 could not drive a high enough voltage to turn on the laser control pin. It was decided to add a relay to the protoboard so that the small voltage GPIO signal from the CC3200 was the control signal and this would then connect VDD from the external power supply rail to the laser so that it would turn on. This solution worked and all of the systems were able to perform as expected. 
 
-What was at first thought to be an easier task, we utilized the PWM example from the CC3200 SDK. It was programmed to have a operating period of around 1us when I needed a period of around 1mS. After trying to configure the systick timer to accommodate this change in period, but it was ultimately decided to abandoned the example and instead improvise with the GPIO pins. To achieve the desired period and duty cycle I would set the GPIO high, wait for a delay, then power that pin low. This was a defacto PWM signal and we were able to control the two axis servo system to within 1% of it's duty cycle ranging from  0%-10%.  
+An important aspect of controlling the laser system at the home device was to utilize Pulse Width Modulation (PWM). Even though there was an SDK PWM example we ended up implementing our own protocol by utilizing a GPIO pin to go high and low as we needed to achieve our target period or 20mS and a duty cycle range from 0%-10%. We can see in the figure below that the degrees of control were all very close. The 10% vale was never utilized in our implementation because of how far the movement would reach. As seen in the same figure the the 10% value moves the laser to a position greater than 180°. For the modes of play, we stayed within this 90° range which was sufficient for our needs. 
 
-Overall, the project involved overcoming a series of complex technical challenges. Despite the difficulties, we were able to find solutions for most of the issues, resulting in a functional and integrated system. The experience has been incredibly educational, highlighting the importance of persistence and problem-solving in tackling sophisticated technical projects.
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/PWMnotes.jpg" style="width:50%;height:auto;" />
+  <span class="caption">Lab notes on PWM and protoboard sketch</span>
+</div>
+
+Here in figure above, we see that the first eight percentages of duty cycle are within 100 degrees. 9% was a lock up state that we took care to avoid. Stalling servos is bad for the gears and this also consumes a significant amount of current and could overheat the servos over time. While applying stimulus to the servos I would test them by calling the duty cycle percentage functions as seen in the figure below. By monitoring the stimulus out of the GPIO pin on the CC3200 on an oscilloscope we were able to achieve the desired duty cycle to control the servos' movements. 
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/PWMcode.JPG" style="width:40%;height:auto;" />
+  <span class="caption">Implementing the duty cycles</span>
+</div>
+
+## Away Device
+To implement the Away device, we first need to understand the protocol our TV remote controller is using. Through our previous labs, we found that it is using the NEC protocol and by utilizing Systick, we were able to decode the IR messages. This allowed us to know what buttons users pressed to select from various lazer modes. Similar to Lab 3, we used the same circuit as shown in the figure below. For the remote controller, we reprogrammed it using our 4-digit identifier code - 1184. 
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/away_circuit.jpg" style="width:80%;height:auto;" />
+  <span class="caption">Diagram of the circuit from the Lab 3 Manual</span>
+</div>
+
+Now that we have the IR receiver working, we need to set up the OLED screen using SPI. This is done by using the Adafruit library and the provided OLED functions to display characters and lines.
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/oled_pins.jpg" style="width:40%;height:auto;" />
+  <span class="caption">OLED Pins Setup From Lab 2 Manual</span>
+</div>
+
+Using the SysConfig software tool to set up our Pin Mux configuration files, we made sure that there were no conflicting GPIO pins with pins for the IR receiver. After all the wires were connected, running the adafruit_init() function was successful as we could see the OLED screen turn on and setting up the hardware for Away device is now complete. 
+
+To poll the GET requests to get the device state from the cloud, we used our static function http_get which we made for Lab 4. We also had to import the cJSON.c to be able to parse the string into a desired JSON format so that we are able to extract the key-value pairs. Then, we displayed the running laser modes accordingly. We also used the http_post function to update the device shadow state when the user pressed the OK button.
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/OLED.png" style="width:40%;height:auto;" />
+  <span class="caption">OLED with menu</span>
+</div>
+
+The web app is also another component of the Away device. The web app is created using VueJS and shows a clean user interface including the Video Player and the buttons for laser modes. We used the AxiosJS library to make POST/GET requests to our custom webserver. The website also uses Web sockets to connect to our server. This enables the server to talk to our website when updates have been made to the shadow states.
+
+## Central Servers
+The Central System has 3 components: AWS IoT Core, AWS Kinesis WebRTC, and Custom Node.js web server. AWS IoT Core takes care of the device shadow states and the JSON format can be seen below.
+
+<div class="fig" style="margin-bottom: 40px;">
+  <img src="./media/stateJSON.jpg" style="width:70%;height:auto;" />
+  <span class="caption">Device Shadow JSON</span>
+</div>
+
+For our live streaming, we created the signal channel in our AWS Kinesis console and used the sample program 'kvsWebMasterStreamGstream' provided by the AWS IoT Kinesis SDK library. This program starts the master stream and waits for a viewer to connect. Once a viewer is connected, it uses Gstreamer to feed video frames to encode and send them to the AWS cloud. The SDK is provided in the link: https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c.
+
+Lastly, for our custom web server, we used Express.js to create our endpoints. We have the endpoints updateShadowState and getShadowState which both use the MQTT protocol to either subscribe or publish to a MQTT topic. By subscribing to the MQTT topic of /updated/accepted, we are able to listen for shadow state changes in the cloud. Then, by setting up the web sockets, we are able to broadcast the updated shadow state changes to our clients: Web App, and Raspberry Pi. For authentication, we created an IAM user with the necessary permissions and policies and we used the provided access key and secret key to access AWS services from our web server and website.
+
+# Challenges
+The final project presented numerous challenges, primarily due to the complexity of integrating a custom web server with AWS IoT and AWS WebRTC to function seamlessly together. The logistics of combining these components were particularly daunting, requiring extensive troubleshooting and fine-tuning to ensure they worked harmoniously.
+
+Implementing live streaming with AWS Kinesis WebRTC was notably difficult, especially since it was our first attempt. Initially, we focused on using a computer camera as the master device. Once we managed to get this working, we transitioned to implementing it on a Raspberry Pi, which introduced new challenges. Ensuring minimal delay and acceptable resolution was critical. Additionally, configuring the Raspberry Pi to work with the PiCam required dealing with outdated versions and experimenting with GStreamer parameters for optimal performance. It was also challenging to configure the Raspberry Pi to run the necessary Python script on boot for a plug-and-play experience. This task involved resolving numerous issues, which we eventually overcame using cron-jobs to automate the process.
+
+An attempt was made to implement a manual laser mode using real-time updates from a TV remote. However, this approach was unsuccessful due to inherent delays in motor responses to inputs, which could not be mitigated. Despite this, we learned valuable lessons about the limitations of the hardware we were using.
+
+What was at first thought to be an easier task, we utilized the PWM example from the CC3200 SDK. It was programmed to have an operating period of around 1us when I needed a period of around 1mS. After trying to configure the Systick timer to accommodate this change in period, but it was ultimately decided to abandon the example and instead improvise with the GPIO pins. To achieve the desired period and duty cycle I would set the GPIO high, wait for a delay, then power that pin low. This was a defacto PWM signal and we were able to control the two-axis servo system to within 1% of its duty cycle ranging from  0%-10%.  
 
 # Future Work
 
-Due to the limitations of the servos, we were unable to fully implement the manual control mode of the laser. The inherent delays in motor responses prevented the system from achieving the desired real-time control. To overcome this, future work will focus on minimizing stream delay to enhance the responsiveness of the manual control system. This could involve optimizing the current setup or exploring alternative hardware solutions that offer faster response times. Additionally, improving the control algorithms to ensure smoother and more precise movements will be a priority. These enhancements will make the manual control mode more reliable and user-friendly.
-
-Another significant area for future development is the implementation of an advanced laser mode that moves in random speeds and directions. This feature would add a dynamic and unpredictable element to the system, increasing its versatility and potential applications. Developing this mode will require sophisticated algorithms that can generate random patterns while ensuring the laser moves safely and effectively within its operational environment. The integration of sensors to monitor the laser's position and adjust its movement in real-time could further enhance this feature.
-
-To support these improvements, further work will also involve optimizing the live streaming capabilities to reduce latency. Achieving minimal stream delay is crucial for both the manual control and the new random movement mode. This might include fine-tuning the AWS Kinesis WebRTC settings, upgrading network infrastructure, or adopting more efficient video compression techniques.
+Given more time, we would like to implement more laser modes. There were also challenges with the cooling of the laser and the Raspberry Pi camera. The power supplies were also varied at the home station. The servos and laser needed their own power supply since the current provided by the GPIO pins on the CC3200 was not sufficient to drive the servos or power the laser. At the home station a 5A 5V power supply would be able to power the servos, laser Raspberry Pi, and the CC3200 with IR sensor. This would be the ideal powering topography. A component that could be changed would be the relay. While the clicking is nice to let the use know the laser is on, it would be more ideal to use a MOSFET to control the laser and we could use a GPIO pin to control an on-off-like gate voltage.
 
 # Bill of Materials
 
@@ -338,7 +342,7 @@ To support these improvements, further work will also involve optimizing the liv
 
 
 
-## References for 3D Models
+## Acknowledgements
 Thank you to everyone in the open source community who continues to put out significant and useful work for others to build off of.
 - [Raspi camera case](https://www.thingiverse.com/thing:2199829)
 - [Motion sensor case](https://www.thingiverse.com/thing:291270)
@@ -346,3 +350,6 @@ Thank you to everyone in the open source community who continues to put out sign
 - [CC3200 holes and layout](https://www.thingiverse.com/thing:3251774)
 - [Servo holders](https://www.thingiverse.com/thing:3045553)
 - [Ball and sockets](https://www.thingiverse.com/thing:2069128)
+
+We would also like to thank the AWS team for providing the IoT SDK for live streaming.
+- [AWS IOT WEBRTC SDK](https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c)
